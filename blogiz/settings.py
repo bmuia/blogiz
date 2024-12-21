@@ -27,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CORS_ALLOW_ALL_ORIGINS = True
+
+
 
 # Application definition
 
@@ -41,11 +44,13 @@ INSTALLED_APPS = [
     'django_extensions',
     'users.apps.UsersConfig',
     'rest_framework_simplejwt',
-    'posts'
+    'posts',
+    'corsheaders',
 
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -81,8 +86,12 @@ WSGI_APPLICATION = 'blogiz.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'globiz',
+        'USER': 'belammuia',
+        'PASSWORD': 'Nzioka@@5648',
+        'HOST': 'db',
+        'PORT': '5432',
     }
 }
 

@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from posts.serializers import PostSerializer
 from .models import CustomUser
 
 # User Registration Serializer
@@ -14,6 +15,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
 # User Detail Serializer
 class UserDetailSerializer(serializers.ModelSerializer):
+    posts = PostSerializer(many=True, read_only=True) 
     class Meta:
         model = CustomUser
-        fields = ['id', 'email', 'profile_picture']
+        fields = ['id', 'email', 'profile_picture','posts']
