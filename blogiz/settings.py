@@ -26,7 +26,10 @@ SECRET_KEY = 'django-insecure-l&8uv5^$#-#bzg5tj0@8rijp$ypw)5wt%@b=(tvrr3%8ma)-82
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'blogiz.onrender.com'
+    'blogiz.onrender.com',
+    '127.0.0.1',
+    'localhost',
+    'localhost:8000', 
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
