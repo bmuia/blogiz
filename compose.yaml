@@ -17,6 +17,6 @@ services:
     environment:
       POSTGRES_USER: belammuia
       POSTGRES_PASSWORD: Nzioka@@5648
-      POSTGRES_DB: globiz
+      POSTGRES_DB: blogiz
     ports:
       - "5432:5432"

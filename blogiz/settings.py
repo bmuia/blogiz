@@ -9,6 +9,8 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+import os
+
 from datetime import timedelta
 from pathlib import Path
 
@@ -51,7 +53,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'posts',
     'corsheaders',
-
+    'django_seed',
 ]
 
 MIDDLEWARE = [
@@ -92,7 +94,7 @@ WSGI_APPLICATION = 'blogiz.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'globiz',
+        'NAME': 'blogiz',
         'USER': 'belammuia',
         'PASSWORD': 'Nzioka@@5648',
         'HOST': 'db',
@@ -161,3 +163,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_PROFILE_MODULE = 'users.CustomUser'
 
 AUTH_USER_MODEL = 'users.CustomUser'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL = '/media/'
