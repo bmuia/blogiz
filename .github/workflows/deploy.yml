@@ -27,12 +27,12 @@ jobs:
 
     - name: Build and push Docker image
       run: |
-        docker build -t your-docker-repo/your-app-name .
-        docker push your-docker-repo/your-app-name  # Push the image to Docker Hub
+        docker build -t belam443/blogiz-web .
+        docker push belam443/blogiz-web  # Push the image to Docker Hub
 
     - name: Deploy to Render
       run: |
-        git remote add render https://git@github.com/your-username/your-repository.git
+        git remote add render https://git@github.com/bmuia/https://github.com/bmuia/blogiz.git
         git push render main  # Push changes to Render for deployment
       env:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
