@@ -32,7 +32,7 @@ jobs:
 
     - name: Deploy to Render
       run: |
-        git remote add render https://github.com/bmuia/blogiz.git
+        git remote add render https://github.com/bmuia/blogiz.git 
         git config --global credential.helper store
         echo "https://${{ secrets.RENDER_PAT }}@github.com" > ~/.git-credentials
         git push render main
