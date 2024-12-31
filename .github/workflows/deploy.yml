@@ -3,40 +3,42 @@ name: Deploy Django Application to Render
 on:
   push:
     branches:
-      - main
+      - main  # This will trigger the workflow when you push to the 'main' branch
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # The job will run on an Ubuntu runner
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v3  # Checkout your repository
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2  # Setup Docker Buildx for building multi-platform images
+
+    - name: Set up Docker
+      uses: docker/setup-qemu-action@v2  # Setup QEMU to build Docker images
+
+    - name: Log in to DockerHub
+      uses: docker/login-action@v2  # Login to Docker Hub using your secrets
       with:
-        python-version: '3.12'  
+        username: ${{ secrets.DOCKER_USERNAME }}  # GitHub secret for your Docker Hub username
+        password: ${{ secrets.DOCKER_PASSWORD }}  # GitHub secret for your Docker Hub password (or token)
 
-    - name: Install dependencies
+    - name: Build and push Docker image
       run: |
-        pip install --upgrade pip  # Upgrade pip to avoid any version issues
-        pip install -r requirements.txt  # Install the dependencies
+        docker build -t your-docker-repo/your-app-name .
+        docker push your-docker-repo/your-app-name  # Push the image to Docker Hub
 
-    - name: Run migrations and collect static files
+    - name: Deploy to Render
       run: |
-        python manage.py migrate  # Apply migrations
-        python manage.py collectstatic --noinput  # Collect static files
+        git remote add render https://git@github.com/your-username/your-repository.git
+        git push render main  # Push changes to Render for deployment
       env:
-        SECRET_KEY: ${{ secrets.SECRET_KEY }}  
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
         DB_NAME: ${{ secrets.DB_NAME }}
         DB_USER: ${{ secrets.DB_USER }}
         DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         DB_HOST: ${{ secrets.DB_HOST }}
-
-    - name: Deploy to Render
-      run: |
-        git remote add render https://git@github.com/<your-username>/<your-repository>.git
-        git push render main  # Push the changes to Render
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
+        DB_PORT: ${{ secrets.DB_PORT }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
