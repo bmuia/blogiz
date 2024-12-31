@@ -27,8 +27,8 @@ jobs:
 
     - name: Build and push Docker image
       run: |
-        docker build -t johnDoe/my-web-app .
-        docker push johnDoe/my-web-app
+        docker build -t belam443/blogiz-web .
+        docker push belam443/blogiz-web
 
     - name: Deploy to Render
       run: |
