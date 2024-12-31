@@ -20,15 +20,15 @@ jobs:
 
     - name: Install dependencies
       run: |
-        python3 -m venv venv
+        python -m venv venv
         source venv/bin/activate
         pip install -r requirements.txt
 
     - name: Run migrations and collect static files
       run: |
         source venv/bin/activate
-        python3 manage.py migrate  # Run database migrations
-        python3 manage.py collectstatic --noinput  # Collect static files
+        python manage.py migrate  # Run database migrations
+        python manage.py collectstatic --noinput  # Collect static files
 
     - name: Deploy to Render
       run: |
