@@ -2,30 +2,26 @@ services:
   web:
     build:
       context: .
-    command: >
-      sh -c "
-      python3 manage.py migrate &&
-      python3 manage.py runserver 0.0.0.0:8000
-      "
+    command: python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/app
     ports:
       - "8000:8000"
     environment:
-      - DEBUG=True
-      - DB_HOST=${{ secrets.DB_HOST }}
-      - DB_NAME=${{ secrets.DB_NAME }}
-      - DB_USER=${{ secrets.DB_USER }}
-      - DB_PASSWORD=${{ secrets.DB_PASSWORD }}
-      - SECRET_KEY=${{ secrets.SECRET_KEY }}
+      - SECRET_KEY=${SECRET_KEY}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
     depends_on:
       - db
 
   db:
     image: postgres:14.13
     environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     ports:
       - "5432:5432"

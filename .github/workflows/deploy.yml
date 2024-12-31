@@ -3,37 +3,37 @@ name: Deploy Django Application to Render
 on:
   push:
     branches:
-      - main  # This will trigger the workflow when you push to the 'main' branch
+      - main
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest  # The job will run on an Ubuntu runner
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3  # Checkout your repository
+      uses: actions/checkout@v3
 
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2  # Setup Docker Buildx for building multi-platform images
+      uses: docker/setup-buildx-action@v2
 
     - name: Set up Docker
-      uses: docker/setup-qemu-action@v2  # Setup QEMU to build Docker images
+      uses: docker/setup-qemu-action@v2
 
     - name: Log in to DockerHub
-      uses: docker/login-action@v2  # Login to Docker Hub using your secrets
+      uses: docker/login-action@v2
       with:
-        username: ${{ secrets.DOCKER_USERNAME }}  # GitHub secret for your Docker Hub username
-        password: ${{ secrets.DOCKER_PASSWORD }}  # GitHub secret for your Docker Hub password (or token)
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build and push Docker image
       run: |
-        docker build -t belam443/blogiz-web .
-        docker push belam443/blogiz-web  # Push the image to Docker Hub
+        docker build -t johnDoe/my-web-app .
+        docker push johnDoe/my-web-app
 
     - name: Deploy to Render
       run: |
-        git remote add render https://git@github.com/bmuia/https://github.com/bmuia/blogiz.git
-        git push render main  # Push changes to Render for deployment
+        git remote add render https://git@github.com/bmuia/blogiz.git
+        git push render main
       env:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
         DB_NAME: ${{ secrets.DB_NAME }}
