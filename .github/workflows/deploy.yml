@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest  
 
     steps:
     - name: Checkout code
@@ -17,22 +17,19 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: '3.12'  
-
     - name: Install dependencies
       run: |
-        python -m venv venv
-        source venv/bin/activate
-        pip install -r requirements.txt
+        pip install --upgrade pip  # Upgrade pip to avoid any version issues
+        pip install -r requirements.txt  # Install the dependencies
 
     - name: Run migrations and collect static files
       run: |
-        source venv/bin/activate
-        python manage.py migrate  # Run database migrations
+        python manage.py migrate  # Apply migrations
         python manage.py collectstatic --noinput  # Collect static files
 
     - name: Deploy to Render
       run: |
         git remote add render https://git@github.com/<your-username>/<your-repository>.git
-        git push render main
+        git push render main  # Push the changes to Render
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
