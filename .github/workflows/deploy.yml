@@ -45,7 +45,7 @@ jobs:
         cat ~/.git-credentials
         git config --list
         
-        # Push to the remote repository
+        # Push to the remote repository 
         git push render main
 
       env:
