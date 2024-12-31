@@ -41,9 +41,12 @@ jobs:
         git config --global credential.helper store
         echo "https://${{ secrets.RENDER_PAT }}@github.com" > ~/.git-credentials
 
-        # Debug the credentials file and Git config
-        cat ~/.git-credentials
-        git config --list
+
+      - name: Debug Git Configuration
+        run: |
+           git config --list
+           cat ~/.git-credentials
+
         
         # Push to the remote repository 
         git push render main
