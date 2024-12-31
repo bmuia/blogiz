@@ -30,18 +30,24 @@ jobs:
         docker build -t belam443/blogiz-web .
         docker push belam443/blogiz-web
 
-    - name: Debug Git Credentials
-      run: |
-           cat ~/.git-credentials
-           git config --list
 
 
     - name: Deploy to Render
       run: |
+        # Add render remote to git
         git remote add render https://github.com/bmuia/blogiz.git
+        
+        # Set up Git credentials using the PAT
         git config --global credential.helper store
         echo "https://${{ secrets.RENDER_PAT }}@github.com" > ~/.git-credentials
+
+        # Debug the credentials file and Git config
+        cat ~/.git-credentials
+        git config --list
+        
+        # Push to the remote repository
         git push render main
+        
       env:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
         DB_NAME: ${{ secrets.DB_NAME }}
