@@ -35,16 +35,17 @@ jobs:
         # Add render remote to git
         git remote add render https://github.com/bmuia/blogiz.git
         
-        # Set up Git credentials using Personal Access Token (RENDER_PAT)
+        # Set up Git credentials using GITHUB_TOKEN
         git config --global credential.helper store
-        echo "https://${{ secrets.RENDER_PAT }}@github.com" > ~/.git-credentials
+        echo "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com" > ~/.git-credentials
 
-        # Debug Git Configuration
+    - name: Debug Git Configuration
+      run: |
         git config --list
         cat ~/.git-credentials
 
-        # Push to the remote repository (Render)
-        git push render main
+    - name: Push to the remote repository
+      run: git push render main
 
       env:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
