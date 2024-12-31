@@ -42,10 +42,10 @@ jobs:
         echo "https://${{ secrets.RENDER_PAT }}@github.com" > ~/.git-credentials
 
 
-      - name: Debug Git Configuration
-        run: |
-           git config --list
-           cat ~/.git-credentials
+    - name: Debug Git Configuration
+      run: |
+        git config --list
+        cat ~/.git-credentials
 
         
         # Push to the remote repository 
