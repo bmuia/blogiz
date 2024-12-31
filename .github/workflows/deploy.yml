@@ -30,6 +30,12 @@ jobs:
         docker build -t belam443/blogiz-web .
         docker push belam443/blogiz-web
 
+    - name: Debug Git Credentials
+      run: |
+           cat ~/.git-credentials
+           git config --list
+
+
     - name: Deploy to Render
       run: |
         git remote add render https://github.com/bmuia/blogiz.git
