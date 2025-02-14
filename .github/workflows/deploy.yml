@@ -32,10 +32,9 @@ jobs:
 
     - name: Deploy to Render
       env:
-        RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}  # Set your API key as an environment variable
+        RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}  
       run: |
-        render deploys create blogiz-1 --commit 63f1663 --wait
-
+        render deploys create ${{ secrets.RENDER_SERVICE_ID }} --output json --confirm
 
     - name: Verify Deployment
       run: |
