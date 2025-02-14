@@ -26,16 +26,15 @@ jobs:
     - name: Deploy to Render
       run: |
         # Set up Render CLI
-        curl -sSL https://render.com/install | bash
+        curl -sSL https://render.com/install | bash || { echo 'Render CLI installation failed'; exit 1; }
         export PATH=$PATH:$HOME/.render/bin
         
         # Log in to Render CLI
-        render login --api-key ${{ secrets.RENDER_API_KEY }}
+        render login --api-key ${{ secrets.RENDER_API_KEY }} || { echo 'Render login failed'; exit 1; }
         
-        # Deploy your service (
-        render deploy --service blogiz-1 --branch main
+        # Deploy your service
+        render deploy --service blogiz-1 --branch main || { echo 'Render deployment failed'; exit 1; }
 
-    # Optionally, you can also add a step to confirm that the deployment was successful
     - name: Verify Deployment
       run: |
         curl --silent --fail https://blogiz-1.onrender.com || exit 1
