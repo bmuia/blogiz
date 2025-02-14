@@ -1,2 +1,5 @@
 # Ignore the environment variables
 .env
+#ignore the migrations generated when a database is migrated
+**/migrations
+
