@@ -2,6 +2,7 @@ from rest_framework import generics, permissions
 from .models import CustomUser
 from .serializers import UserRegistrationSerializer, UserDetailSerializer
 
+
 # User Registration View
 class UserRegistrationView(generics.CreateAPIView):
     queryset = CustomUser.objects.all()
