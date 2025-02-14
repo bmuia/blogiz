@@ -23,17 +23,20 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    - name: Set up Render CLI
+      run: |
+        # Download Render CLI directly from GitHub releases
+        curl -L https://github.com/render-oss/cli/releases/download/v1.1.0/cli_1.1.0_linux_amd64.zip -o render.zip
+        unzip render.zip
+        sudo mv cli_v1.1.0 /usr/local/bin/render
+        
+    - name: Log in to Render CLI
+      run: |
+        render login --api-key ${{ secrets.RENDER_API_KEY }}
+
     - name: Deploy to Render
       run: |
-        # Set up Render CLI
-        curl -sSL https://render.com/install | bash || { echo 'Render CLI installation failed'; exit 1; }
-        export PATH=$PATH:$HOME/.render/bin
-        
-        # Log in to Render CLI
-        render login --api-key ${{ secrets.RENDER_API_KEY }} || { echo 'Render login failed'; exit 1; }
-        
-        # Deploy your service
-        render deploy --service blogiz-1 --branch main || { echo 'Render deployment failed'; exit 1; }
+        render deploy --service blogiz-1 --branch main
 
     - name: Verify Deployment
       run: |
