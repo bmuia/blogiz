@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'blogiz.onrender.com',
+    'blogiz-1.onrender.com',
     '127.0.0.1',
     'localhost',
     'localhost:8000', 
