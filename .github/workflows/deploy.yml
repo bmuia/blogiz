@@ -32,9 +32,9 @@ jobs:
 
     - name: Deploy to Render
       env:
-        RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}  #
+        RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}  # Set your API key as an environment variable
       run: |
-        render deploys create --service blogiz-1 --branch main  # Correct command to trigger deployment
+        render deploys create blogiz-1 --branch main  # Correct command (no --service flag)
 
     - name: Verify Deployment
       run: |
