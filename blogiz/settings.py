@@ -57,7 +57,8 @@ INSTALLED_APPS = [
     'posts',
     'corsheaders',
     'django_seed',
-    'django_rest_passwordreset'
+    'django_rest_passwordreset',
+    'notifications',
 ]
 
 MIDDLEWARE = [
