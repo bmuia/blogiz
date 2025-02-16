@@ -5,7 +5,7 @@ from rest_framework.decorators import api_view
 from .models import Post, Like, Comment
 from .serializers import PostSerializer
 from django.contrib.auth import get_user_model
-
+from rest_framework.permissions import AllowAny
 User = get_user_model()
 
 # Like Post
@@ -44,6 +44,7 @@ class PostCreateApi(generics.CreateAPIView):
 
 class PostApi(generics.ListAPIView):
     queryset = Post.objects.all()
+    permission_classes = [AllowAny]
     serializer_class = PostSerializer
 
 class UserPostsApi(generics.ListAPIView):

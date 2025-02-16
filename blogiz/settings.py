@@ -103,12 +103,25 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# for render database instead of localhost
 DATABASES = {
     'default': dj_database_url.config(
         default=os.environ.get('DB_URL'),
         conn_max_age=600
     )
 }
+
+# localhost database
+# DATABASES = {
+#     'default':{
+#         'DB_ENGINE': os.environ.get('DB_ENGINE'),
+#         'DB_NAME': os.environ.get('DB_NAME'),
+#         'DB_USER': os.environ.get('DB_USER'),
+#         'DB_PASSWORD': os.environ.get('DB_PASSWORD'),
+#         'DB_HOST': os.environ.get('DB_HOST'),
+#         'DB_PORT': os.environ.get('DB_PORT'),
+#     }
+# }
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
