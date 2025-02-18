@@ -39,7 +39,7 @@ class CustomUser(AbstractUser):
 @receiver(reset_password_token_created)
 def password_reset_token_created(sender, instance, reset_password_token, *args, **kwargs):
     # Update the reset URL to point to the frontend app
-    frontend_url = "http://localhost:5173/reset-password/"
+    frontend_url = "https://blogiz-fefab.web.app//reset-password/"
     reset_url = f"{frontend_url}{reset_password_token.key}"
     
     # Email message
